@@ -14,42 +14,52 @@ class MainApp < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
-  get '/words' do
-    words = Word.all.map do |w|
-      w.id.to_s + ": #{w.msg}"
-    end
-    words.join(', ')
+  #  get '/' do
+  #    words = Word.all.map do |w|
+  #      w.id.to_s + ": #{w.msg}"
+  #    end
+  #    words.join(', ')
+  #  end
+  #  get '/words/:id' do
+  #    id = params[:id]
+  #    word = Word.get(id)
+  #    if word.nil?
+  #      "Record of id: #{id} is not found."
+  #    else
+  #      word.id.to_s + ": #{word.msg}"
+  #    end
+  #  end
+  get '/' do
+    @obj = Word.all
+    erb:index
   end
-  get '/words/:id' do
-    id = params[:id]
-    word = Word.get(id)
-    if word.nil?
-      "Record of id: #{id} is not found."
-    else
-      word.id.to_s + ": #{word.msg}"
-    end
+  post '/' do
+    Word.create(msg: params[:ex_text])
+    @obj = Word.all
+    @obj.class.to_s
+    erb :index
   end
-  post '/words' do
-    word = Word.create(msg: request.body.gets)
-    word.id.to_s
-  end
-  put '/words/:id' do
-    id = params[:id]
-    word = Word.get(id)
-    if word.nil?
-      'false'
-    else
-      word.update(msg: request.body.gets)
-      'true'
-    end
-  end
-  delete '/words/:id' do
-    id = params[:id]
-    word = Word.get(id)
-    if word.nil?
-      'false'
-    else
-      word.destroy.to_s
-    end
-  end
+  # post '/words' do
+  #  word = Word.create(msg: request.body.gets)
+  #  word.id.to_s
+  # end
+  #  put '/words/:id' do
+  #    id = params[:id]
+  #    word = Word.get(id)
+  #    if word.nil?
+  #      'false'
+  #    else
+  #      word.update(msg: request.body.gets)
+  #      'true'
+  #    end
+  #  end
+  #  delete '/words/:id' do
+  #    id = params[:id]
+  #    word = Word.get(id)
+  #    if word.nil?
+  #      'false'
+  #    else
+  #      word.destroy.to_s
+  #    end
+  #  end
 end

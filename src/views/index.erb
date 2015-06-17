@@ -17,19 +17,23 @@
       <![endif]-->
   </head>
   <body>
-
     <div class="container">
-    <h1>Twit</h1>
-    <div class="submit">
-      <form method="post" id="ex-form" enctype="multipart/form-data">
-        <div class="form-text">
-          <textarea name="ex_text" id="ex-text"></textarea>
-        </div>
-        <div class="form-submit">
-          <input type="submit" name="submit" value="Tweet">
-        </div>
-      </form>
-    </div><!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <h1>Twit</h1>
+      <div class="submit">
+        <form method="post" id="ex-form" action="/" enctype="multipart/form-data">
+          <div class="form-text">
+            <textarea name="ex_text" id="ex-text"></textarea>
+          </div>
+          <div class="form-submit">
+            <input type="submit" name="submit" value="Tweet">
+          </div>
+        </form>
+      </div>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <% @obj.each do |tweet|%>
+        <%= tweet[:msg].to_s%>
+      <% end%>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
